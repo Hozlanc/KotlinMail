@@ -5,9 +5,6 @@ import com.blake.baselibrary.presenter.BasePresenter
 import com.blake.baselibrary.rx.BaseSubscriber
 import com.blake.usercenter.presenter.view.RegisterView
 import com.blake.usercenter.service.impl.UserServiceImpl
-import rx.Subscriber
-import rx.android.schedulers.AndroidSchedulers
-import rx.schedulers.Schedulers
 
 /**
  * Create by Pidan
