@@ -6,13 +6,16 @@ import com.blake.usercenter.data.repository.UserRepository
 import com.blake.usercenter.service.UserService
 import rx.Observable
 import rx.functions.Func1
+import javax.inject.Inject
 
 /**
  * Create by Pidan
  */
-class UserServiceImpl : UserService {
+class UserServiceImpl @Inject constructor() : UserService {
+    @Inject
+    lateinit var repository: UserRepository
+
     override fun register(mobile: String, verifyCode: String, psw: String): Observable<Boolean> {
-        val repository = UserRepository()
         return repository.register(mobile, psw, verifyCode)
             .flatMap(object : Func1<BaseResp<String>, Observable<Boolean>> {
                 override fun call(t: BaseResp<String>): Observable<Boolean> {

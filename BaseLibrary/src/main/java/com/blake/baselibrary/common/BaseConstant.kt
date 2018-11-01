@@ -3,4 +3,4 @@ package com.blake.baselibrary.common
 /**
  * Create by Pidan
  */
-val SERVER_ADDRESS = ""
+const val SERVER_ADDRESS = "https://www.baidu.com/"
