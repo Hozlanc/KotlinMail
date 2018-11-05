@@ -1,6 +1,8 @@
 package com.blake.usercenter.ui.activity
 
 import android.os.Bundle
+import com.blake.baselibrary.common.AppManager
+import com.blake.baselibrary.ext.onClick
 import com.blake.baselibrary.ui.activity.BaseMvpActivity
 import com.blake.usercenter.R
 import com.blake.usercenter.injection.component.DaggerUserComponent
@@ -11,24 +13,36 @@ import kotlinx.android.synthetic.main.activity_register.*
 import org.jetbrains.anko.toast
 
 class RegisterActivity : BaseMvpActivity<RegisterPresenter>(), RegisterView {
-    override fun registerResult(result: Boolean) {
-        toast("Register Success")
+    override fun injectComponent() {
+        DaggerUserComponent.builder()
+            .activityComponent(activityComponent)
+            .userModule(UserModule())
+            .build().inject(this)
+        mPresenter.mView = this
+    }
+
+    override fun registerResult(result: String) {
+        toast(result)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
 
-        initInjection()
-
-        mRegisterBtn.setOnClickListener {
+        mRegisterBtn.onClick {
             mPresenter.register(mMobileEt.text.toString(), mVerifyCodeEt.text.toString(), mPswEt.text.toString())
         }
     }
 
-    private fun initInjection() {
-        DaggerUserComponent.builder().activityComponent(activityComponent).userModule(UserModule()).build().inject(this)
+    private var pressTime: Long = 0
 
-        mPresenter.mView = this
+    override fun onBackPressed() {
+        val time = System.currentTimeMillis()
+        if (time - pressTime > 2000) {
+            toast("再按一次退出程序")
+            pressTime = time
+        } else {
+            AppManager.exitApp(this)
+        }
     }
 }

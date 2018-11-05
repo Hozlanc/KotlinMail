@@ -9,7 +9,7 @@ import javax.inject.Singleton
  * Create by Pidan
  */
 @Singleton
-@Component(modules = arrayOf(AppModule::class))
+@Component(modules = [AppModule::class])
 interface AppComponent {
     fun context(): Context
 }

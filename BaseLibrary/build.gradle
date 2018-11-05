@@ -46,6 +46,8 @@ dependencies {
     /*Rx*/
     api "io.reactivex:rxkotlin:$rx_kotlin_version"
     api "io.reactivex:rxandroid:$rx_android_version"
+    api "com.trello:rxlifecycle-kotlin:$rx_life_version"
+    api "com.trello:rxlifecycle-components:$rx_life_version"
 
     /*Retrofit*/
     api "com.squareup.okhttp3:okhttp:$ok_http_version"

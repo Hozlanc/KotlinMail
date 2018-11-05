@@ -1,4 +1,4 @@
-package com.blake.baselibrary.ui.activity
+package com.blake.baselibrary.ui.fragment
 
 import android.os.Bundle
 import com.blake.baselibrary.common.BaseApplication
@@ -13,7 +13,7 @@ import javax.inject.Inject
 /**
  * Create by Pidan
  */
-open abstract class BaseMvpActivity<T : BasePresenter<*>> : BaseActivity(), BaseView {
+open abstract class BaseMvpFragment<T : BasePresenter<*>> : BaseFragment(), BaseView {
     override fun showLoading() {
     }
 
@@ -39,8 +39,8 @@ open abstract class BaseMvpActivity<T : BasePresenter<*>> : BaseActivity(), Base
     private fun initInjection() {
         activityComponent =
                 DaggerActivityComponent.builder()
-                    .appComponent((application as BaseApplication).appComponent)
-                    .activityModule(ActivityModule(this))
+                    .appComponent((activity.application as BaseApplication).appComponent)
+                    .activityModule(ActivityModule(activity))
                     .lifecycleProviderModule(LifecycleProviderModule(this))
                     .build()
     }
