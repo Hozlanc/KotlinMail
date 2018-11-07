@@ -1,6 +1,7 @@
 package com.blake.baselibrary.common
 
 import android.app.Application
+import android.content.Context
 import com.blake.baselibrary.injection.component.AppComponent
 import com.blake.baselibrary.injection.component.DaggerAppComponent
 import com.blake.baselibrary.injection.module.AppModule
@@ -15,9 +16,15 @@ class BaseApplication : Application() {
         super.onCreate()
 
         initInjection()
+
+        context = this
     }
 
     private fun initInjection() {
         appComponent = DaggerAppComponent.builder().appModule(AppModule(this)).build()
+    }
+
+    companion object {
+        lateinit var context: Context
     }
 }

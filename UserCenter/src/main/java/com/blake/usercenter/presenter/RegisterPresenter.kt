@@ -1,5 +1,6 @@
 package com.blake.usercenter.presenter
 
+import android.os.Handler
 import com.blake.baselibrary.ext.execute
 import com.blake.baselibrary.presenter.BasePresenter
 import com.blake.baselibrary.rx.BaseSubscriber
@@ -17,12 +18,17 @@ class RegisterPresenter @Inject constructor() : BasePresenter<RegisterView>() {
     lateinit var userService: UserService
 
     fun register(mobile: String, verifyCode: String, psw: String) {
-        userService.register(mobile, verifyCode, psw)
-            .execute(lifecycleProvider, object : BaseSubscriber<Boolean>() {
-                override fun onNext(t: Boolean) {
-                    if (t)
-                        mView.registerResult("注册成功")
-                }
-            })
+        if (!checkNetwork()) {
+            return
+        }
+        mView.showLoading()
+        Handler().postDelayed({
+            userService.register(mobile, verifyCode, psw)
+                .execute(lifecycleProvider, object : BaseSubscriber<Boolean>(mView) {
+                    override fun onNext(t: Boolean) {
+                        if (t) mView.registerResult("注册成功")
+                    }
+                })
+        }, 2000)
     }
 }

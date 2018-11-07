@@ -31,34 +31,31 @@ android {
 }
 
 dependencies {
-    api fileTree(dir: 'libs', include: ['*.jar'])
+    api fileTree(include: ['*.jar'], dir: 'libs')
     api 'com.android.support:appcompat-v7:28.0.0'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-
     /*Anko*/
     api "org.jetbrains.anko:anko-commons:$anko_version"
     api "org.jetbrains.anko:anko-support-v4-commons:$anko_version"
     api "org.jetbrains.anko:anko-appcompat-v7-commons:$anko_version"
-
     /*Rx*/
     api "io.reactivex:rxkotlin:$rx_kotlin_version"
     api "io.reactivex:rxandroid:$rx_android_version"
     api "com.trello:rxlifecycle-kotlin:$rx_life_version"
     api "com.trello:rxlifecycle-components:$rx_life_version"
-
     /*Retrofit*/
     api "com.squareup.okhttp3:okhttp:$ok_http_version"
     api "com.squareup.okhttp3:logging-interceptor:$ok_http_version"
     api "com.squareup.retrofit2:retrofit:$retrofit_version"
     api "com.squareup.retrofit2:converter-gson:$retrofit_version"
     api "com.squareup.retrofit2:adapter-rxjava:$retrofit_version"
-
     /*Dagger2*/
     api "com.google.dagger:dagger:$dagger_version"
     kapt "com.google.dagger:dagger-compiler:$dagger_version"
+    api 'com.android.support:recyclerview-v7:28.0.0'
 }
 
 configurations.all {

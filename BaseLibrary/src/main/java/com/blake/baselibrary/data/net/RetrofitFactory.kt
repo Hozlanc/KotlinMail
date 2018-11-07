@@ -1,6 +1,6 @@
 package com.blake.baselibrary.data.net
 
-import com.blake.baselibrary.common.SERVER_ADDRESS
+import com.blake.baselibrary.common.BaseConstant
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -15,7 +15,7 @@ import java.util.concurrent.TimeUnit
 object RetrofitFactory {
     private val retrofit by lazy {
         Retrofit.Builder()
-            .baseUrl(SERVER_ADDRESS)
+            .baseUrl(BaseConstant.SERVER_ADDRESS)
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
             .client(initClient())

@@ -8,6 +8,7 @@ import com.blake.baselibrary.injection.module.ActivityModule
 import com.blake.baselibrary.injection.module.LifecycleProviderModule
 import com.blake.baselibrary.presenter.BasePresenter
 import com.blake.baselibrary.presenter.view.BaseView
+import org.jetbrains.anko.toast
 import javax.inject.Inject
 
 /**
@@ -20,7 +21,8 @@ open abstract class BaseMvpFragment<T : BasePresenter<*>> : BaseFragment(), Base
     override fun hideLoading() {
     }
 
-    override fun onError() {
+    override fun onError(text: String) {
+        activity.toast(text)
     }
 
     @Inject

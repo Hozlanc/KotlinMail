@@ -1,6 +1,7 @@
 package com.blake.baselibrary.injection.component
 
 import android.app.Activity
+import android.content.Context
 import com.blake.baselibrary.injection.ActivityScope
 import com.blake.baselibrary.injection.module.ActivityModule
 import com.blake.baselibrary.injection.module.AppModule
@@ -17,7 +18,9 @@ import dagger.Component
     dependencies = [AppComponent::class]
 )
 interface ActivityComponent {
-    fun Activity(): Activity
+    fun activity(): Activity
 
-    fun LifecycleProvider(): LifecycleProvider<*>
+    fun context(): Context
+
+    fun lifecycleProvider(): LifecycleProvider<*>
 }

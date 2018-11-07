@@ -1,17 +1,20 @@
 package com.blake.baselibrary.rx
 
+import com.blake.baselibrary.presenter.view.BaseView
 import rx.Subscriber
 
 /**
  * Create by Pidan
  */
-open class BaseSubscriber<T> : Subscriber<T>() {
+open class BaseSubscriber<T>(private val baseView: BaseView) : Subscriber<T>() {
     override fun onNext(t: T) {
     }
 
     override fun onCompleted() {
+        baseView.hideLoading()
     }
 
     override fun onError(e: Throwable?) {
+        baseView.hideLoading()
     }
 }
