@@ -6,5 +6,5 @@ import com.blake.baselibrary.presenter.view.BaseView
  * Create by Pidan
  */
 interface RegisterView : BaseView {
-    fun registerResult(result: String)
+    fun onRegisterResult(result: String)
 }

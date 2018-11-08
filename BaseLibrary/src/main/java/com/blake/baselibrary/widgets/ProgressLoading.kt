@@ -11,12 +11,12 @@ import org.jetbrains.anko.find
 /**
  * Create by Pidan
  */
-class ProgressLoading(context: Context, themeResId: Int) : Dialog(context, themeResId) {
+class ProgressLoading private constructor(context: Context, themeResId: Int) : Dialog(context, themeResId) {
     companion object {
         private lateinit var dialog: ProgressLoading
         private var animDrawable: AnimationDrawable? = null
 
-        fun create(context: Context) {
+        fun create(context: Context): ProgressLoading {
             dialog = ProgressLoading(context, R.style.LightProgressDialog)
             dialog.setContentView(R.layout.progress_dialog)
             dialog.setCancelable(true)
@@ -30,6 +30,7 @@ class ProgressLoading(context: Context, themeResId: Int) : Dialog(context, theme
             val loadingView = dialog.find<ImageView>(R.id.iv_loading)
             animDrawable = loadingView.background as AnimationDrawable
 
+            return dialog
         }
     }
 
