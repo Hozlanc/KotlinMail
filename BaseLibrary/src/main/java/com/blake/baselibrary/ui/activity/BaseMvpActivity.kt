@@ -25,7 +25,7 @@ open abstract class BaseMvpActivity<T : BasePresenter<*>> : BaseActivity(), Base
     }
 
     override fun onError(text: String) {
-        toast(text)
+        toast("BaseMvpActivity onError:\n$text")
     }
 
     @Inject
@@ -46,11 +46,10 @@ open abstract class BaseMvpActivity<T : BasePresenter<*>> : BaseActivity(), Base
     abstract fun injectComponent()
 
     private fun initInjection() {
-        activityComponent =
-                DaggerActivityComponent.builder()
-                    .appComponent((application as BaseApplication).appComponent)
-                    .activityModule(ActivityModule(this))
-                    .lifecycleProviderModule(LifecycleProviderModule(this))
-                    .build()
+        activityComponent = DaggerActivityComponent.builder()
+            .appComponent((application as BaseApplication).appComponent)
+            .activityModule(ActivityModule(this))
+            .lifecycleProviderModule(LifecycleProviderModule(this))
+            .build()
     }
 }

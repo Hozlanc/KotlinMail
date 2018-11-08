@@ -1,13 +1,11 @@
 package com.blake.usercenter.service.impl
 
-import com.blake.baselibrary.data.protocol.BaseResp
+import com.blake.baselibrary.ext.convert
 import com.blake.baselibrary.ext.convertBoolean
-import com.blake.baselibrary.rx.BaseException
-import com.blake.baselibrary.rx.BaseFuncBoolean
+import com.blake.usercenter.data.protocol.UserInfo
 import com.blake.usercenter.data.repository.UserRepository
 import com.blake.usercenter.service.UserService
 import rx.Observable
-import rx.functions.Func1
 import javax.inject.Inject
 
 /**
@@ -18,7 +16,10 @@ class UserServiceImpl @Inject constructor() : UserService {
     lateinit var repository: UserRepository
 
     override fun register(mobile: String, verifyCode: String, psw: String): Observable<Boolean> {
-        return repository.register(mobile, psw, verifyCode)
-            .convertBoolean()
+        return repository.register(mobile, psw, verifyCode).convertBoolean()
+    }
+
+    override fun login(mobile: String, psw: String, pushId: String): Observable<UserInfo> {
+        return repository.login(mobile, psw, pushId).convert()
     }
 }

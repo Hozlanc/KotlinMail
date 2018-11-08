@@ -6,8 +6,6 @@ import com.blake.baselibrary.presenter.BasePresenter
 import com.blake.baselibrary.rx.BaseSubscriber
 import com.blake.usercenter.presenter.view.RegisterView
 import com.blake.usercenter.service.UserService
-import com.blake.usercenter.service.impl.UserServiceImpl
-import com.trello.rxlifecycle.LifecycleProvider
 import javax.inject.Inject
 
 /**
@@ -17,16 +15,16 @@ class RegisterPresenter @Inject constructor() : BasePresenter<RegisterView>() {
     @Inject
     lateinit var userService: UserService
 
-    fun register(mobile: String, verifyCode: String, psw: String) {
+    fun register(mobile: String, psw: String, verifyCode: String) {
         if (!checkNetwork()) {
             return
         }
         mView.showLoading()
         Handler().postDelayed({
-            userService.register(mobile, verifyCode, psw)
+            userService.register(mobile, psw, verifyCode)
                 .execute(lifecycleProvider, object : BaseSubscriber<Boolean>(mView) {
                     override fun onNext(t: Boolean) {
-                        if (t) mView.registerResult("注册成功")
+                        if (t) mView.onRegisterResult("注册成功")
                     }
                 })
         }, 2000)
