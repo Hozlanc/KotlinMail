@@ -92,7 +92,7 @@ object YuanFenConverter {
         if (!amount.matches(CURRENCY_FEN_REGEX.toRegex())) {
             throw Exception("Invalid format")
         }
-        return BigDecimal.valueOf(java.lang.Long.valueOf(amount)!!).divide(BigDecimal(100)).toString()
+        return BigDecimal.valueOf(java.lang.Long.valueOf(amount)).divide(BigDecimal(100)).toString()
     }
 
     /*
@@ -109,7 +109,7 @@ object YuanFenConverter {
         val currency = amount.replace("\\$|\\¥|\\,".toRegex(), "")
         val index = currency.indexOf(".")
         val length = currency.length
-        var amLong: Long? = 0L
+        var amLong: Long?
         if (index == -1) {
             amLong = java.lang.Long.valueOf(currency + "00")
         } else if (length - index >= 3) {

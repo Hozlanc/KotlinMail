@@ -9,6 +9,6 @@ import java.lang.annotation.RetentionPolicy.RUNTIME
  * Create by Pidan
  */
 @Scope
-@Documented
-@Retention(RUNTIME)
+@kotlin.annotation.MustBeDocumented
+@kotlin.annotation.Retention
 annotation class PerComponentScope

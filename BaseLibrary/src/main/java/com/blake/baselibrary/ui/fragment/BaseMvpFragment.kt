@@ -14,7 +14,7 @@ import javax.inject.Inject
 /**
  * Create by Pidan
  */
-open abstract class BaseMvpFragment<T : BasePresenter<*>> : BaseFragment(), BaseView {
+abstract class BaseMvpFragment<T : BasePresenter<*>> : BaseFragment(), BaseView {
     override fun showLoading() {
     }
 

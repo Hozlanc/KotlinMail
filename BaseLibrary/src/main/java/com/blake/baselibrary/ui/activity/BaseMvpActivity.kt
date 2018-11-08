@@ -15,7 +15,7 @@ import javax.inject.Inject
 /**
  * Create by Pidan
  */
-open abstract class BaseMvpActivity<T : BasePresenter<*>> : BaseActivity(), BaseView {
+abstract class BaseMvpActivity<T : BasePresenter<*>> : BaseActivity(), BaseView {
     override fun showLoading() {
         progressLoading.showLoading()
     }
@@ -25,7 +25,7 @@ open abstract class BaseMvpActivity<T : BasePresenter<*>> : BaseActivity(), Base
     }
 
     override fun onError(text: String) {
-        toast("BaseMvpActivity onError:\n$text")
+        toast(text)
     }
 
     @Inject
