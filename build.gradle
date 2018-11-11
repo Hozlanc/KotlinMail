@@ -11,6 +11,9 @@ buildscript {
     ext.dagger_version = '2.19'
     ext.rx_life_version = '1.0'
     ext.glide_version = '3.7.0'
+    ext.circle_image_view_version = '2.2.0'
+    ext.take_photo_version = '4.0.3'
+    ext.alert_view_version = '1.0.3'
     repositories {
         google()
         jcenter()

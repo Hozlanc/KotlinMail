@@ -2,7 +2,6 @@ package com.blake.usercenter.ui.activity
 
 import android.os.Bundle
 import android.view.View
-import com.blake.baselibrary.common.AppManager
 import com.blake.baselibrary.ext.enable
 import com.blake.baselibrary.ext.onClick
 import com.blake.baselibrary.ui.activity.BaseMvpActivity
@@ -14,19 +13,18 @@ import com.blake.usercenter.presenter.LoginPresenter
 import com.blake.usercenter.presenter.view.LoginView
 import kotlinx.android.synthetic.main.activity_login.*
 import org.jetbrains.anko.startActivity
-import org.jetbrains.anko.toast
 
 class LoginActivity : BaseMvpActivity<LoginPresenter>(), LoginView, View.OnClickListener {
     override fun onLoginResult(result: UserInfo) {
-        toast("Login Success")
+        println("登录成功")
+        startActivity<UserInfoActivity>()
     }
 
     override fun onClick(v: View) {
         when (v.id) {
-            R.id.mLoginBtn -> {
-                mPresenter.login(mMobileEt.text.toString(), mPwdEt.text.toString(), "")
-            }
             R.id.mRightTv -> startActivity<RegisterActivity>()
+            R.id.mLoginBtn -> mPresenter.login(mMobileEt.text.toString(), mPwdEt.text.toString(), "")
+            R.id.mForgetPwdTv -> startActivity<ForgetPwdActivity>()
             else -> return
         }
     }
@@ -50,21 +48,22 @@ class LoginActivity : BaseMvpActivity<LoginPresenter>(), LoginView, View.OnClick
         mLoginBtn.enable(mMobileEt, ::isBtnEnable)
         mLoginBtn.enable(mPwdEt, ::isBtnEnable)
 
-        mLoginBtn.onClick(this)
         mHeaderBar.getRightView().onClick(this)
+        mLoginBtn.onClick(this)
+        mForgetPwdTv.onClick(this)
     }
 
     private var pressTime: Long = 0
 
-    override fun onBackPressed() {
-        val time = System.currentTimeMillis()
-        if (time - pressTime > 2000) {
-            toast("再按一次退出程序")
-            pressTime = time
-        } else {
-            AppManager.exitApp(this)
-        }
-    }
+//    override fun onBackPressed() {
+//        val time = System.currentTimeMillis()
+//        if (time - pressTime > 2000) {
+//            toast("再按一次退出程序")
+//            pressTime = time
+//        } else {
+//            AppManager.exitApp(this)
+//        }
+//    }
 
     private fun isBtnEnable(): Boolean {
         return mMobileEt.text.isNullOrEmpty().not() and

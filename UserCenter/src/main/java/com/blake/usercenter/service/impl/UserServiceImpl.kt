@@ -12,14 +12,24 @@ import javax.inject.Inject
  * Create by Pidan
  */
 class UserServiceImpl @Inject constructor() : UserService {
+
     @Inject
     lateinit var repository: UserRepository
 
-    override fun register(mobile: String, psw: String, verifyCode: String): Observable<Boolean> {
-        return repository.register(mobile, psw, verifyCode).convertBoolean()
+    override fun register(mobile: String, pwd: String, verifyCode: String): Observable<Boolean> {
+        return repository.register(mobile, pwd, verifyCode).convertBoolean()
     }
 
-    override fun login(mobile: String, psw: String, pushId: String): Observable<UserInfo> {
-        return repository.login(mobile, psw, pushId).convert()
+    override fun login(mobile: String, pwd: String, pushId: String): Observable<UserInfo> {
+        return repository.login(mobile, pwd, pushId).convert()
     }
+
+    override fun forgetPwd(mobile: String, verifyCode: String): Observable<Boolean> {
+        return repository.forgetPwd(mobile, verifyCode).convertBoolean()
+    }
+
+    override fun resetPwd(mobile: String, pwd: String): Observable<Boolean> {
+        return repository.resetPwd(mobile, pwd).convertBoolean()
+    }
+
 }

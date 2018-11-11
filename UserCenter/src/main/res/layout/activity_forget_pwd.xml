@@ -2,11 +2,10 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               xmlns:app="http://schemas.android.com/apk/res-auto"
               style="@style/MatchMatch.Vertical.Common">
-    <com.kotlin.base.widgets.HeaderBar
+    <com.blake.baselibrary.widgets.HeaderBar
             android:id="@+id/mHeaderBar"
             style="@style/MatchWrap"
-            app:titleText="忘记密码"
-    />
+            app:titleText="忘记密码"/>
     <LinearLayout
             style="@style/MatchWrap.Vertical"
             android:background="@drawable/border_corner_all"
@@ -45,6 +44,5 @@
     <Button
             android:id="@+id/mNextBtn"
             style="@style/FullBtnStyle"
-            android:text="@string/common_next"
-    />
+            android:text="@string/common_next"/>
 </LinearLayout>

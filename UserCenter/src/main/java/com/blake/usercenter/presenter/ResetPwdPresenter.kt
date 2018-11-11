@@ -1,29 +1,28 @@
 package com.blake.usercenter.presenter
 
-import android.os.Handler
 import com.blake.baselibrary.ext.execute
 import com.blake.baselibrary.presenter.BasePresenter
 import com.blake.baselibrary.rx.BaseSubscriber
-import com.blake.usercenter.presenter.view.RegisterView
+import com.blake.usercenter.presenter.view.ResetPwdView
 import com.blake.usercenter.service.UserService
 import javax.inject.Inject
 
 /**
  * Create by Pidan
  */
-class RegisterPresenter @Inject constructor() : BasePresenter<RegisterView>() {
+class ResetPwdPresenter @Inject constructor() : BasePresenter<ResetPwdView>() {
     @Inject
     lateinit var userService: UserService
 
-    fun register(mobile: String, psw: String, verifyCode: String) {
+    fun resetPwd(mobile: String, pwd: String) {
         if (!checkNetwork()) {
             return
         }
         mView.showLoading()
-        userService.register(mobile, psw, verifyCode)
+        userService.resetPwd(mobile, pwd)
             .execute(lifecycleProvider, object : BaseSubscriber<Boolean>(mView) {
                 override fun onNext(t: Boolean) {
-                    if (t) mView.onRegisterResult("注册成功")
+                    if (t) mView.onResetPwdResult("重置密码成功")
                 }
             })
     }

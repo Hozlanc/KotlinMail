@@ -5,6 +5,7 @@
     <com.blake.baselibrary.widgets.HeaderBar
             android:id="@+id/mHeaderBar"
             style="@style/MatchWrap"
+            app:isShowBack="false"
             app:titleText="登录"
             app:rightText="注册"
     />

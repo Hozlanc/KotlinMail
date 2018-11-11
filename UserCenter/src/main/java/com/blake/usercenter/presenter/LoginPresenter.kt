@@ -21,13 +21,11 @@ class LoginPresenter @Inject constructor() : BasePresenter<LoginView>() {
             return
         }
         mView.showLoading()
-        Handler().postDelayed({
-            userService.login(mobile, psw, pushId)
-                .execute(lifecycleProvider, object : BaseSubscriber<UserInfo>(mView) {
-                    override fun onNext(t: UserInfo) {
-                        mView.onLoginResult(t)
-                    }
-                })
-        }, 2000)
+        userService.login(mobile, psw, pushId)
+            .execute(lifecycleProvider, object : BaseSubscriber<UserInfo>(mView) {
+                override fun onNext(t: UserInfo) {
+                    mView.onLoginResult(t)
+                }
+            })
     }
 }
