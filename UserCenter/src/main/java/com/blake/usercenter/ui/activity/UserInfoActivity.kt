@@ -7,11 +7,14 @@ import android.os.Bundle
 import android.os.Environment
 import android.view.View
 import com.bigkoo.alertview.AlertView
+import com.blake.baselibrary.common.BaseConstant
 import com.blake.baselibrary.ext.onClick
 import com.blake.baselibrary.ui.activity.BaseMvpActivity
 import com.blake.baselibrary.utils.AppPrefsUtils
+import com.blake.baselibrary.utils.GlideUtils
 import com.blake.provider.common.ProviderConstant
 import com.blake.usercenter.R
+import com.blake.usercenter.data.protocol.UserInfo
 import com.blake.usercenter.injection.component.DaggerUserComponent
 import com.blake.usercenter.injection.module.UserModule
 import com.blake.usercenter.presenter.UserInfoPresenter
@@ -21,11 +24,12 @@ import com.jph.takephoto.app.TakePhotoImpl
 import com.jph.takephoto.compress.CompressConfig
 import com.jph.takephoto.model.TResult
 import com.kotlin.base.utils.DateUtils
-import com.blake.baselibrary.utils.GlideUtils
-import com.blake.usercenter.data.protocol.UserInfo
+import com.qiniu.android.http.ResponseInfo
+import com.qiniu.android.storage.UpCompletionHandler
+import com.qiniu.android.storage.UploadManager
 import kotlinx.android.synthetic.main.activity_user_info.*
-import kotlinx.android.synthetic.main.layout_header_bar.*
 import org.jetbrains.anko.toast
+import org.json.JSONObject
 import permissions.dispatcher.*
 import java.io.File
 
@@ -33,21 +37,16 @@ import java.io.File
 class UserInfoActivity : BaseMvpActivity<UserInfoPresenter>(), UserInfoView, View.OnClickListener,
     TakePhoto.TakeResultListener {
 
-
-    lateinit var mTakePhoto: TakePhoto
-
     private var mUserIcon: String? = null
     private var mUserName: String? = null
     private var mUserMobile: String? = null
     private var mUserGender: String? = null
     private var mUserSign: String? = null
 
-    override fun onClick(v: View) {
-//        when (v.id) {
-//
-//            else -> return
-//        }
-    }
+    private lateinit var mTakePhoto: TakePhoto
+    private val mUploadManager: UploadManager by lazy { UploadManager() }
+    private var mLocalFileUrl: String? = null
+    private var mRemoteFileUrl: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -72,7 +71,12 @@ class UserInfoActivity : BaseMvpActivity<UserInfoPresenter>(), UserInfoView, Vie
             showAlertViewWithPermissionCheck()
         }
         mHeaderBar.getRightView().onClick {
-//            mPresenter.editUser()
+            mPresenter.editUser(
+                mRemoteFileUrl ?: "",
+                mUserNameEt.text?.toString() ?: "",
+                if (mGenderMaleRb.isChecked) "0" else "1",
+                mUserSignEt.text?.toString() ?: ""
+            )
         }
     }
 
@@ -82,12 +86,20 @@ class UserInfoActivity : BaseMvpActivity<UserInfoPresenter>(), UserInfoView, Vie
         mUserMobile = AppPrefsUtils.getString(ProviderConstant.KEY_SP_USER_MOBILE)
         mUserGender = AppPrefsUtils.getString(ProviderConstant.KEY_SP_USER_GENDER)
         mUserSign = AppPrefsUtils.getString(ProviderConstant.KEY_SP_USER_SIGN)
+        mRemoteFileUrl = mUserIcon
         GlideUtils.loadUrlImage(this, mUserIcon, mUserIconIv)
         mUserNameEt.setText(mUserName)
         mUserMobileTv.text = mUserMobile
         if (mUserGender == "0") mGenderMaleRb.isChecked = true
         else mGenderFemaleRb.isChecked = true
         mUserSignEt.setText(mUserSign)
+    }
+
+    override fun onClick(v: View) {
+//        when (v.id) {
+//
+//            else -> return
+//        }
     }
 
     @NeedsPermission(
@@ -117,18 +129,16 @@ class UserInfoActivity : BaseMvpActivity<UserInfoPresenter>(), UserInfoView, Vie
     }
 
     override fun onEditUserResult(result: UserInfo) {
-
+        toast("修改成功")
     }
 
     private fun createTempFile(): File {
         val tempFileName = "${DateUtils.curTime}.png"
-        val tempFile: File
-        if (Environment.MEDIA_MOUNTED == Environment.getExternalStorageState()) {
-            tempFile = File(Environment.getExternalStorageDirectory(), tempFileName)
+        return if (Environment.MEDIA_MOUNTED == Environment.getExternalStorageState()) {
+            File(Environment.getExternalStorageDirectory(), tempFileName)
         } else {
-            tempFile = File(filesDir, tempFileName)
+            File(filesDir, tempFileName)
         }
-        return tempFile
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -168,6 +178,9 @@ class UserInfoActivity : BaseMvpActivity<UserInfoPresenter>(), UserInfoView, Vie
     override fun takeSuccess(result: TResult?) {
         println(result?.image?.compressPath)
         println(result?.image?.originalPath)
+
+        mLocalFileUrl = result?.image?.compressPath
+        mPresenter.getUploadToken()
     }
 
     override fun takeCancel() {
@@ -175,5 +188,17 @@ class UserInfoActivity : BaseMvpActivity<UserInfoPresenter>(), UserInfoView, Vie
 
     override fun takeFail(result: TResult?, msg: String?) {
         println("TakeFailure :$msg")
+    }
+
+    override fun onGetUploadTokenResult(result: String) {
+        mUploadManager.put(mLocalFileUrl, null, result, object : UpCompletionHandler {
+            override fun complete(key: String?, info: ResponseInfo?, response: JSONObject?) {
+                response?.apply {
+                    mRemoteFileUrl = BaseConstant.IMAGE_SERVER_ADDRESS + get("hash")
+                    println("fileUri:$mRemoteFileUrl")
+                    GlideUtils.loadUrlImage(this@UserInfoActivity, mRemoteFileUrl, mUserIconIv)
+                }
+            }
+        }, null)
     }
 }

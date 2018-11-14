@@ -51,6 +51,9 @@ class LoginActivity : BaseMvpActivity<LoginPresenter>(), LoginView, View.OnClick
         mHeaderBar.getRightView().onClick(this)
         mLoginBtn.onClick(this)
         mForgetPwdTv.onClick(this)
+
+        mMobileEt.setText("123")
+        mPwdEt.setText("123")
     }
 
     private var pressTime: Long = 0

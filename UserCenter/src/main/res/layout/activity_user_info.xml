@@ -79,7 +79,6 @@
         <EditText android:id="@+id/mUserSignEt"
                   android:background="@null"
                   android:hint="请您填写签名"
-                  android:inputType="textEmailAddress"
                   style="@style/user_info_content_style"/>
     </RelativeLayout>
 </LinearLayout>
