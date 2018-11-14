@@ -70,4 +70,6 @@ dependencies {
     api("com.github.hotchemi:permissionsdispatcher:$permissions_dispatcher_version") {
         exclude group: 'com.android.support', module: 'support-v13'
     }
+    /*七牛云*/
+    api "com.qiniu:qiniu-android-sdk:$qiniu_version"
 }

@@ -6,5 +6,5 @@ import com.blake.baselibrary.presenter.view.BaseView
  * Create by Pidan
  */
 interface UserInfoView : BaseView {
-
+    fun onGetUploadTokenResult(result: String)
 }

@@ -5,10 +5,9 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
-import android.support.v7.app.AlertDialog
 import android.view.View
-import android.widget.Toast
 import com.bigkoo.alertview.AlertView
+import com.blake.baselibrary.common.BaseConstant
 import com.blake.baselibrary.ext.onClick
 import com.blake.baselibrary.ui.activity.BaseMvpActivity
 import com.blake.usercenter.R
@@ -21,30 +20,24 @@ import com.jph.takephoto.app.TakePhotoImpl
 import com.jph.takephoto.compress.CompressConfig
 import com.jph.takephoto.model.TResult
 import com.kotlin.base.utils.DateUtils
+import com.kotlin.base.utils.GlideUtils
+import com.qiniu.android.http.ResponseInfo
+import com.qiniu.android.storage.UpCompletionHandler
+import com.qiniu.android.storage.UploadManager
 import kotlinx.android.synthetic.main.activity_user_info.*
 import org.jetbrains.anko.toast
+import org.json.JSONObject
 import permissions.dispatcher.*
 import java.io.File
 
 @RuntimePermissions
 class UserInfoActivity : BaseMvpActivity<UserInfoPresenter>(), UserInfoView, View.OnClickListener,
     TakePhoto.TakeResultListener {
-    lateinit var mTakePhoto: TakePhoto
 
-    override fun onClick(v: View) {
-//        when (v.id) {
-//
-//            else -> return
-//        }
-    }
-
-    override fun injectComponent() {
-        DaggerUserComponent.builder()
-            .activityComponent(activityComponent)
-            .userModule(UserModule())
-            .build().inject(this)
-        mPresenter.mView = this
-    }
+    private lateinit var mTakePhoto: TakePhoto
+    private val mUploadManager: UploadManager by lazy { UploadManager() }
+    private var mLocalFile: String? = null
+    private lateinit var mRemoteFile: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,10 +48,25 @@ class UserInfoActivity : BaseMvpActivity<UserInfoPresenter>(), UserInfoView, Vie
         mTakePhoto.onCreate(savedInstanceState)
     }
 
+    override fun injectComponent() {
+        DaggerUserComponent.builder()
+            .activityComponent(activityComponent)
+            .userModule(UserModule())
+            .build().inject(this)
+        mPresenter.mView = this
+    }
+
     private fun initView() {
         mUserIconIv.onClick {
             showAlertViewWithPermissionCheck()
         }
+    }
+
+    override fun onClick(v: View) {
+//        when (v.id) {
+//
+//            else -> return
+//        }
     }
 
     @NeedsPermission(
@@ -89,13 +97,11 @@ class UserInfoActivity : BaseMvpActivity<UserInfoPresenter>(), UserInfoView, Vie
 
     private fun createTempFile(): File {
         val tempFileName = "${DateUtils.curTime}.png"
-        val tempFile: File
-        if (Environment.MEDIA_MOUNTED == Environment.getExternalStorageState()) {
-            tempFile = File(Environment.getExternalStorageDirectory(), tempFileName)
+        return if (Environment.MEDIA_MOUNTED == Environment.getExternalStorageState()) {
+            File(Environment.getExternalStorageDirectory(), tempFileName)
         } else {
-            tempFile = File(filesDir, tempFileName)
+            File(filesDir, tempFileName)
         }
-        return tempFile
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -135,6 +141,9 @@ class UserInfoActivity : BaseMvpActivity<UserInfoPresenter>(), UserInfoView, Vie
     override fun takeSuccess(result: TResult?) {
         println(result?.image?.compressPath)
         println(result?.image?.originalPath)
+
+        mLocalFile = result?.image?.compressPath
+        mPresenter.getUploadToken()
     }
 
     override fun takeCancel() {
@@ -142,5 +151,17 @@ class UserInfoActivity : BaseMvpActivity<UserInfoPresenter>(), UserInfoView, Vie
 
     override fun takeFail(result: TResult?, msg: String?) {
         println("TakeFailure :$msg")
+    }
+
+    override fun onGetUploadTokenResult(result: String) {
+        mUploadManager.put(mLocalFile, null, result, object : UpCompletionHandler {
+            override fun complete(key: String?, info: ResponseInfo?, response: JSONObject?) {
+                response?.apply {
+                    mRemoteFile = BaseConstant.IMAGE_SERVER_ADDRESS + get("hash")
+                    println("fileUri:$mRemoteFile")
+                    GlideUtils.loadUrlImage(this@UserInfoActivity, mRemoteFile, mUserIconIv)
+                }
+            }
+        }, null)
     }
 }
