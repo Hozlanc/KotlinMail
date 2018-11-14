@@ -1,6 +1,7 @@
 package com.blake.baselibrary.data.net
 
 import com.blake.baselibrary.common.BaseConstant
+import com.blake.baselibrary.utils.AppPrefsUtils
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -27,6 +28,7 @@ object RetrofitFactory {
                 .newBuilder()
                 .addHeader("Content-Type", "application/json")
                 .addHeader("charset", "utf-8")
+                .addHeader("token", AppPrefsUtils.getString(BaseConstant.KEY_SP_TOKEN))
                 .build()
             it.proceed(request)
         }

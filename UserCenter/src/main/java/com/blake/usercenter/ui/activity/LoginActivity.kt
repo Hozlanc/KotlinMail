@@ -16,7 +16,7 @@ import org.jetbrains.anko.startActivity
 
 class LoginActivity : BaseMvpActivity<LoginPresenter>(), LoginView, View.OnClickListener {
     override fun onLoginResult(result: UserInfo) {
-        println("登录成功")
+        println("登录成功:" + result.toString())
         startActivity<UserInfoActivity>()
     }
 

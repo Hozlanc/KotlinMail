@@ -3,10 +3,7 @@ package com.blake.usercenter.data.repository
 import com.blake.baselibrary.data.net.RetrofitFactory
 import com.blake.baselibrary.data.protocol.BaseResp
 import com.blake.usercenter.data.api.UserApi
-import com.blake.usercenter.data.protocol.ForgetPwdReq
-import com.blake.usercenter.data.protocol.LoginReq
-import com.blake.usercenter.data.protocol.RegisterReq
-import com.blake.usercenter.data.protocol.ResetPwdReq
+import com.blake.usercenter.data.protocol.*
 import rx.Observable
 import javax.inject.Inject
 
@@ -30,4 +27,8 @@ class UserRepository @Inject constructor() {
     fun resetPwd(mobile: String, psw: String) =
         RetrofitFactory.create(UserApi::class.java)
             .resetPwd(ResetPwdReq(mobile, psw))
+
+    fun editUser(userIcon: String, userName: String, userGender: String, userSign: String) =
+        RetrofitFactory.create(UserApi::class.java)
+            .editUser(EditUserReq(userIcon, userName, userGender, userSign))
 }

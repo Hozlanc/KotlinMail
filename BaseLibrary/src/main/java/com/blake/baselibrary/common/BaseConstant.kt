@@ -13,5 +13,6 @@ class BaseConstant {
         /*Nubia*/
 //        const val SERVER_ADDRESS = "http://192.168.42.116:8080/"
         const val TABLE_PREFS = "Dubal"
+        const val KEY_SP_TOKEN = "token"
     }
 }

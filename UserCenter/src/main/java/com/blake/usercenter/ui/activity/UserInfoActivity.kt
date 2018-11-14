@@ -5,12 +5,12 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
-import android.support.v7.app.AlertDialog
 import android.view.View
-import android.widget.Toast
 import com.bigkoo.alertview.AlertView
 import com.blake.baselibrary.ext.onClick
 import com.blake.baselibrary.ui.activity.BaseMvpActivity
+import com.blake.baselibrary.utils.AppPrefsUtils
+import com.blake.provider.common.ProviderConstant
 import com.blake.usercenter.R
 import com.blake.usercenter.injection.component.DaggerUserComponent
 import com.blake.usercenter.injection.module.UserModule
@@ -21,7 +21,10 @@ import com.jph.takephoto.app.TakePhotoImpl
 import com.jph.takephoto.compress.CompressConfig
 import com.jph.takephoto.model.TResult
 import com.kotlin.base.utils.DateUtils
+import com.blake.baselibrary.utils.GlideUtils
+import com.blake.usercenter.data.protocol.UserInfo
 import kotlinx.android.synthetic.main.activity_user_info.*
+import kotlinx.android.synthetic.main.layout_header_bar.*
 import org.jetbrains.anko.toast
 import permissions.dispatcher.*
 import java.io.File
@@ -29,13 +32,31 @@ import java.io.File
 @RuntimePermissions
 class UserInfoActivity : BaseMvpActivity<UserInfoPresenter>(), UserInfoView, View.OnClickListener,
     TakePhoto.TakeResultListener {
+
+
     lateinit var mTakePhoto: TakePhoto
+
+    private var mUserIcon: String? = null
+    private var mUserName: String? = null
+    private var mUserMobile: String? = null
+    private var mUserGender: String? = null
+    private var mUserSign: String? = null
 
     override fun onClick(v: View) {
 //        when (v.id) {
 //
 //            else -> return
 //        }
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_user_info)
+
+        mTakePhoto = TakePhotoImpl(this, this)
+        mTakePhoto.onCreate(savedInstanceState)
+        initView()
+        initData()
     }
 
     override fun injectComponent() {
@@ -46,19 +67,27 @@ class UserInfoActivity : BaseMvpActivity<UserInfoPresenter>(), UserInfoView, Vie
         mPresenter.mView = this
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_user_info)
-
-        initView()
-        mTakePhoto = TakePhotoImpl(this, this)
-        mTakePhoto.onCreate(savedInstanceState)
-    }
-
     private fun initView() {
         mUserIconIv.onClick {
             showAlertViewWithPermissionCheck()
         }
+        mHeaderBar.getRightView().onClick {
+//            mPresenter.editUser()
+        }
+    }
+
+    private fun initData() {
+        mUserIcon = AppPrefsUtils.getString(ProviderConstant.KEY_SP_USER_ICON)
+        mUserName = AppPrefsUtils.getString(ProviderConstant.KEY_SP_USER_NAME)
+        mUserMobile = AppPrefsUtils.getString(ProviderConstant.KEY_SP_USER_MOBILE)
+        mUserGender = AppPrefsUtils.getString(ProviderConstant.KEY_SP_USER_GENDER)
+        mUserSign = AppPrefsUtils.getString(ProviderConstant.KEY_SP_USER_SIGN)
+        GlideUtils.loadUrlImage(this, mUserIcon, mUserIconIv)
+        mUserNameEt.setText(mUserName)
+        mUserMobileTv.text = mUserMobile
+        if (mUserGender == "0") mGenderMaleRb.isChecked = true
+        else mGenderFemaleRb.isChecked = true
+        mUserSignEt.setText(mUserSign)
     }
 
     @NeedsPermission(
@@ -85,6 +114,10 @@ class UserInfoActivity : BaseMvpActivity<UserInfoPresenter>(), UserInfoView, Vie
                 }
             }.build()
             .show()
+    }
+
+    override fun onEditUserResult(result: UserInfo) {
+
     }
 
     private fun createTempFile(): File {

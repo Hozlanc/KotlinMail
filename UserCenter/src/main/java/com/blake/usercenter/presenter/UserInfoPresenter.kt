@@ -17,4 +17,14 @@ class UserInfoPresenter @Inject constructor() : BasePresenter<UserInfoView>() {
     @Inject
     lateinit var userService: UserService
 
+    fun editUser(userIcon: String, userName: String, userGender: String, userSign: String) {
+        if (!checkNetwork()) return
+        mView.showLoading()
+        userService.editUser(userIcon, userName, userGender, userSign)
+            .execute(lifecycleProvider, object : BaseSubscriber<UserInfo>(mView) {
+                override fun onNext(t: UserInfo) {
+                    mView.onEditUserResult(t)
+                }
+            })
+    }
 }
