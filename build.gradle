@@ -1,8 +1,13 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 buildscript {
+    ext.compile_sdk_version = 28
+    ext.build_tools_version = "28.0.3"
+    ext.min_sdk_version = 16
+    ext.target_sdk_version = 28
+
     ext.support_version = '28.0.0'
-    ext.kotlin_version = '1.2.71'
+    ext.kotlin_version = '1.3.0'
     ext.anko_version = '0.10.7'
     ext.rx_kotlin_version = '1.0.0'
     ext.rx_android_version = '1.2.1'
@@ -17,6 +22,7 @@ buildscript {
     ext.permissions_dispatcher_version = '3.3.1'
     ext.qiniu_version = '7.3.9'
     ext.bottom_navigation_version = '2.1.0'
+    ext.banner_version = '1.4.10'
     repositories {
         google()
         jcenter()
@@ -34,6 +40,7 @@ allprojects {
     repositories {
         google()
         jcenter()
+        maven { url 'https://jitpack.io' }
     }
 }
 

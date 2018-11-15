@@ -5,11 +5,12 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
 android {
-    compileSdkVersion 28
+    compileSdkVersion compile_sdk_version
+
     defaultConfig {
+        minSdkVersion min_sdk_version
+        targetSdkVersion target_sdk_version
         applicationId "com.blake.dubal"
-        minSdkVersion 16
-        targetSdkVersion 28
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -25,8 +26,9 @@ android {
 dependencies {
     api project(':Provider')
     if (isUserModule.toBoolean()) {
-        api project(':UserCenter')
+        implementation project(':UserCenter')
     }
+    implementation project(':MessageCenter')
     kapt "com.google.dagger:dagger-compiler:$dagger_version"
 }
 repositories {

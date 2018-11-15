@@ -11,13 +11,11 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 
 android {
-    compileSdkVersion 28
-
-
+    compileSdkVersion compile_sdk_version
 
     defaultConfig {
-        minSdkVersion 16
-        targetSdkVersion 28
+        minSdkVersion min_sdk_version
+        targetSdkVersion target_sdk_version
         versionCode 1
         versionName "1.0"
 
@@ -48,7 +46,7 @@ android {
 }
 
 dependencies {
-    api project(':Provider')
+    implementation project(':Provider')
     /*Dagger2*/
     kapt "com.google.dagger:dagger-compiler:$dagger_version"
     kapt "com.github.hotchemi:permissionsdispatcher-processor:$permissions_dispatcher_version"

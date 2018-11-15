@@ -3,10 +3,12 @@ package com.blake.baselibrary.ext
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageView
 import com.blake.baselibrary.data.protocol.BaseResp
 import com.blake.baselibrary.rx.BaseFunc
 import com.blake.baselibrary.rx.BaseFuncBoolean
 import com.blake.baselibrary.rx.BaseSubscriber
+import com.blake.baselibrary.utils.GlideUtils
 import com.blake.baselibrary.widgets.DefaultTextWatcher
 import com.trello.rxlifecycle.LifecycleProvider
 import rx.Observable
@@ -27,7 +29,7 @@ fun <T> Observable<BaseResp<T>>.convert(): Observable<T> = this.flatMap(BaseFunc
 
 fun <T> Observable<BaseResp<T>>.convertBoolean(): Observable<Boolean> = this.flatMap(BaseFuncBoolean())
 
-fun View.onClick(listener:View.OnClickListener):View{
+fun View.onClick(listener: View.OnClickListener): View {
     setOnClickListener(listener)
     return this
 }
@@ -50,4 +52,11 @@ fun Button.enable(et: EditText, method: () -> Boolean) {
             btn.isEnabled = method()
         }
     })
+}
+
+/*
+ImageView加载网络图片
+*/
+fun ImageView.loadUrl(url: String) {
+    GlideUtils.loadUrlImage(context, url, this)
 }
