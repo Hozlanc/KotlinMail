@@ -15,20 +15,6 @@ import kotlinx.android.synthetic.main.activity_login.*
 import org.jetbrains.anko.startActivity
 
 class LoginActivity : BaseMvpActivity<LoginPresenter>(), LoginView, View.OnClickListener {
-    override fun onLoginResult(result: UserInfo) {
-        println("登录成功:" + result.toString())
-        startActivity<UserInfoActivity>()
-    }
-
-    override fun onClick(v: View) {
-        when (v.id) {
-            R.id.mRightTv -> startActivity<RegisterActivity>()
-            R.id.mLoginBtn -> mPresenter.login(mMobileEt.text.toString(), mPwdEt.text.toString(), "")
-            R.id.mForgetPwdTv -> startActivity<ForgetPwdActivity>()
-            else -> return
-        }
-    }
-
     override fun injectComponent() {
         DaggerUserComponent.builder()
             .activityComponent(activityComponent)
@@ -67,6 +53,19 @@ class LoginActivity : BaseMvpActivity<LoginPresenter>(), LoginView, View.OnClick
 //            AppManager.exitApp(this)
 //        }
 //    }
+
+    override fun onClick(v: View) {
+        when (v.id) {
+            R.id.mRightTv -> startActivity<RegisterActivity>()
+            R.id.mLoginBtn -> mPresenter.login(mMobileEt.text.toString(), mPwdEt.text.toString(), "")
+            R.id.mForgetPwdTv -> startActivity<ForgetPwdActivity>()
+            else -> return
+        }
+    }
+
+    override fun onLoginResult(result: UserInfo) {
+        finish()
+    }
 
     private fun isBtnEnable(): Boolean {
         return mMobileEt.text.isNullOrEmpty().not() and
