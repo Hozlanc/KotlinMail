@@ -6,8 +6,6 @@ import com.blake.baselibrary.ext.enable
 import com.blake.baselibrary.ext.onClick
 import com.blake.baselibrary.ui.activity.BaseMvpActivity
 import com.blake.usercenter.R
-import com.blake.usercenter.R.id.mMobileEt
-import com.blake.usercenter.R.id.mVerifyCodeEt
 import com.blake.usercenter.injection.component.DaggerUserComponent
 import com.blake.usercenter.injection.module.UserModule
 import com.blake.usercenter.presenter.ForgetPwdPresenter
@@ -34,7 +32,7 @@ class ForgetPwdActivity : BaseMvpActivity<ForgetPwdPresenter>(), ForgetPwdView, 
 
     override fun injectComponent() {
         DaggerUserComponent.builder()
-            .activityComponent(activityComponent)
+            .activityComponent(mActivityComponent)
             .userModule(UserModule())
             .build().inject(this)
         mPresenter.mView = this

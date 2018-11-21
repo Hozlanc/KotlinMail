@@ -1,12 +1,10 @@
 package com.blake.usercenter.ui.activity
 
 import android.os.Bundle
-import android.view.View
 import com.blake.baselibrary.ext.enable
 import com.blake.baselibrary.ext.onClick
 import com.blake.baselibrary.ui.activity.BaseMvpActivity
 import com.blake.usercenter.R
-import com.blake.usercenter.R.id.*
 import com.blake.usercenter.injection.component.DaggerUserComponent
 import com.blake.usercenter.injection.module.UserModule
 import com.blake.usercenter.presenter.ResetPwdPresenter
@@ -17,7 +15,7 @@ import org.jetbrains.anko.*
 class ResetPwdActivity : BaseMvpActivity<ResetPwdPresenter>(), ResetPwdView {
     override fun injectComponent() {
         DaggerUserComponent.builder()
-            .activityComponent(activityComponent)
+            .activityComponent(mActivityComponent)
             .userModule(UserModule())
             .build().inject(this)
         mPresenter.mView = this

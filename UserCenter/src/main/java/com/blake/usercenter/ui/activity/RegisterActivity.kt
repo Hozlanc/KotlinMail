@@ -2,7 +2,6 @@ package com.blake.usercenter.ui.activity
 
 import android.os.Bundle
 import android.view.View
-import com.blake.baselibrary.common.AppManager
 import com.blake.baselibrary.ext.enable
 import com.blake.baselibrary.ext.onClick
 import com.blake.baselibrary.ui.activity.BaseMvpActivity
@@ -32,7 +31,7 @@ class RegisterActivity : BaseMvpActivity<RegisterPresenter>(), RegisterView, Vie
 
     override fun injectComponent() {
         DaggerUserComponent.builder()
-            .activityComponent(activityComponent)
+            .activityComponent(mActivityComponent)
             .userModule(UserModule())
             .build().inject(this)
         mPresenter.mView = this

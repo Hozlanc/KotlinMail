@@ -17,7 +17,7 @@ import org.jetbrains.anko.startActivity
 class LoginActivity : BaseMvpActivity<LoginPresenter>(), LoginView, View.OnClickListener {
     override fun injectComponent() {
         DaggerUserComponent.builder()
-            .activityComponent(activityComponent)
+            .activityComponent(mActivityComponent)
             .userModule(UserModule())
             .build().inject(this)
         mPresenter.mView = this

@@ -26,9 +26,10 @@ android {
 dependencies {
     api project(':Provider')
 //    if (isUserModule.toBoolean()) {
-        implementation project(':UserCenter')
-//    }
+    implementation project(':UserCenter')
+    implementation project(':GoodsCenter')
     implementation project(':MessageCenter')
+//    }
     kapt "com.google.dagger:dagger-compiler:$dagger_version"
 }
 repositories {

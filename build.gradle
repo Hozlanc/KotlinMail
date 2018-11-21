@@ -23,6 +23,7 @@ buildscript {
     ext.qiniu_version = '7.3.9'
     ext.bottom_navigation_version = '2.1.0'
     ext.banner_version = '1.4.10'
+    ext.arouter_api_version = '1.4.1'
     repositories {
         google()
         jcenter()

@@ -7,6 +7,7 @@ import com.ashokvarma.bottomnavigation.BottomNavigationBar
 import com.blake.dubal.R
 import com.blake.dubal.ui.fragment.HomeFragment
 import com.blake.dubal.ui.fragment.MeFragment
+import com.blake.goodscenter.ui.fragment.CategoryFragment
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
 
@@ -18,7 +19,7 @@ class MainActivity : AppCompatActivity() {
     //主界面Fragment
     private val mHomeFragment by lazy { HomeFragment() }
     //商品分类Fragment
-    private val mCategoryFragment by lazy { HomeFragment() }
+    private val mCategoryFragment by lazy { CategoryFragment() }
     //购物车Fragment
     private val mCartFragment by lazy { HomeFragment() }
     //消息Fragment
