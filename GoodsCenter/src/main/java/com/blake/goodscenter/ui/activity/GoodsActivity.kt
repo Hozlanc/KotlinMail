@@ -18,6 +18,7 @@ import com.blake.goodscenter.presenter.view.GoodsListView
 import com.blake.goodscenter.ui.adapter.GoodsAdapter
 import com.kennyc.view.MultiStateView
 import kotlinx.android.synthetic.main.activity_goods.*
+import org.jetbrains.anko.startActivity
 
 /**
  * Create by Pidan
@@ -51,7 +52,7 @@ class GoodsActivity : BaseMvpActivity<GoodsListPresenter>(), GoodsListView, BGAR
         mGoodsRv.adapter = mGoodsAdapter
         mGoodsAdapter.setOnItemClickListener(object : BaseRecyclerViewAdapter.OnItemClickListener<Goods> {
             override fun onItemClick(item: Goods, position: Int) {
-
+                startActivity<GoodsDetailActivity>(GoodsConstant.KEY_GOODS_ID to item.id)
             }
         })
     }
@@ -65,8 +66,13 @@ class GoodsActivity : BaseMvpActivity<GoodsListPresenter>(), GoodsListView, BGAR
     }
 
     private fun loadData() {
-        mMultiStateView.startLoading()
-        mPresenter.getGoodsList(intent.getIntExtra(GoodsConstant.KEY_CATEGORY_ID, 1), 1)
+        if (intent.getIntExtra(GoodsConstant.KEY_SEARCH_GOODS_TYPE, 0) != 0) {
+            mMultiStateView.startLoading()
+            mPresenter.getGoodsListByKeyword(intent.getStringExtra(GoodsConstant.KEY_GOODS_KEYWORD), mCurrentPage)
+        } else {
+            mMultiStateView.startLoading()
+            mPresenter.getGoodsList(intent.getIntExtra(GoodsConstant.KEY_CATEGORY_ID, 1), mCurrentPage)
+        }
     }
 
     override fun onGetGoodsListResult(result: MutableList<Goods>?) {
@@ -96,6 +102,7 @@ class GoodsActivity : BaseMvpActivity<GoodsListPresenter>(), GoodsListView, BGAR
         }
 
     override fun onBGARefreshLayoutBeginRefreshing(refreshLayout: BGARefreshLayout?) {
+        mRefreshLayout.endRefreshing()
     }
 
 }

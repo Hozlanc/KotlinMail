@@ -5,7 +5,7 @@ import com.blake.baselibrary.presenter.BasePresenter
 import com.blake.baselibrary.rx.BaseSubscriber
 import com.blake.goodscenter.data.protocol.Goods
 import com.blake.goodscenter.presenter.view.GoodsListView
-import com.blake.usercenter.service.GoodsService
+import com.blake.goodscenter.service.GoodsService
 import javax.inject.Inject
 
 /**
@@ -21,6 +21,24 @@ class GoodsListPresenter @Inject constructor() : BasePresenter<GoodsListView>() 
         }
         mView.showLoading()
         goodsService.getGoodsList(categoryId, pageNo)
+            .execute(lifecycleProvider, object : BaseSubscriber<MutableList<Goods>?>(mView) {
+                override fun onNext(t: MutableList<Goods>?) {
+                    mView.onGetGoodsListResult(t)
+                }
+
+                override fun onError(e: Throwable?) {
+                    super.onError(e)
+                    println(e?.message)
+                }
+            })
+    }
+
+    fun getGoodsListByKeyword(keyword: String, pageNo: Int) {
+        if (!checkNetwork()) {
+            return
+        }
+        mView.showLoading()
+        goodsService.getGoodsListByKeyword(keyword, pageNo)
             .execute(lifecycleProvider, object : BaseSubscriber<MutableList<Goods>?>(mView) {
                 override fun onNext(t: MutableList<Goods>?) {
                     mView.onGetGoodsListResult(t)

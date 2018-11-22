@@ -6,6 +6,12 @@ apply plugin: 'kotlin-android-extensions'
 
 apply plugin: 'kotlin-kapt'
 
+kapt {
+    arguments {
+        arg("AROUTER_MODULE_NAME", project.getName())
+    }
+}
+
 android {
     compileSdkVersion compile_sdk_version
 
@@ -30,6 +36,9 @@ android {
 
 dependencies {
     implementation project(':Provider')
+    implementation 'ren.qinc.numberbutton:numberbutton:0.0.1'
     /*Dagger2*/
     kapt "com.google.dagger:dagger-compiler:$dagger_version"
+    /*ARouter*/
+    kapt "com.alibaba:arouter-compiler:$arouter_compiler_version"
 }

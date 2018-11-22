@@ -2,9 +2,11 @@ package com.blake.usercenter.ui.activity
 
 import android.os.Bundle
 import android.view.View
+import com.alibaba.android.arouter.facade.annotation.Route
 import com.blake.baselibrary.ext.enable
 import com.blake.baselibrary.ext.onClick
 import com.blake.baselibrary.ui.activity.BaseMvpActivity
+import com.blake.provider.router.RouterPath
 import com.blake.usercenter.R
 import com.blake.usercenter.data.protocol.UserInfo
 import com.blake.usercenter.injection.component.DaggerUserComponent
@@ -14,6 +16,7 @@ import com.blake.usercenter.presenter.view.LoginView
 import kotlinx.android.synthetic.main.activity_login.*
 import org.jetbrains.anko.startActivity
 
+@Route(path = RouterPath.UserCenter.PATH_LOGIN)
 class LoginActivity : BaseMvpActivity<LoginPresenter>(), LoginView, View.OnClickListener {
     override fun injectComponent() {
         DaggerUserComponent.builder()

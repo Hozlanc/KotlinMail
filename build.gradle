@@ -24,6 +24,7 @@ buildscript {
     ext.bottom_navigation_version = '2.1.0'
     ext.banner_version = '1.4.10'
     ext.arouter_api_version = '1.4.1'
+    ext.arouter_compiler_version = '1.2.2'
     repositories {
         google()
         jcenter()

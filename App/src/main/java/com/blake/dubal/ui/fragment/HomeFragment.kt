@@ -5,16 +5,20 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.blake.baselibrary.ext.onClick
 import com.blake.baselibrary.ui.fragment.BaseFragment
 import com.blake.baselibrary.widgets.BannerImageLoader
 import com.blake.dubal.R
 import com.blake.dubal.common.*
 import com.blake.dubal.ui.adapter.HomeDiscountAdapter
 import com.blake.dubal.ui.adapter.TopicAdapter
+import com.blake.goodscenter.ui.activity.SearchGoodsActivity
 import com.youth.banner.BannerConfig
 import com.youth.banner.Transformer
 import kotlinx.android.synthetic.main.fragment_home.*
 import me.crosswall.lib.coverflow.CoverFlow
+import org.jetbrains.anko.support.v4.startActivity
+import org.jetbrains.anko.support.v4.toast
 
 /**
  * Create by Pidan
@@ -28,10 +32,21 @@ class HomeFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initView()
         initBanner()
         initNews()
         initDiscount()
         initTopic()
+    }
+
+    private fun initView() {
+        mSearchEt.onClick {
+            startActivity<SearchGoodsActivity>()
+        }
+
+        mScanIv.onClick {
+            toast(R.string.coming_soon_tip)
+        }
     }
 
     private fun initBanner() {

@@ -1,7 +1,7 @@
 package com.blake.goodscenter.injection.module
 
 import com.blake.goodscenter.service.impl.GoodsServiceImpl
-import com.blake.usercenter.service.GoodsService
+import com.blake.goodscenter.service.GoodsService
 import dagger.Module
 import dagger.Provides
 
