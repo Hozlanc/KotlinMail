@@ -25,11 +25,6 @@ class GoodsListPresenter @Inject constructor() : BasePresenter<GoodsListView>() 
                 override fun onNext(t: MutableList<Goods>?) {
                     mView.onGetGoodsListResult(t)
                 }
-
-                override fun onError(e: Throwable?) {
-                    super.onError(e)
-                    println(e?.message)
-                }
             })
     }
 
@@ -42,11 +37,6 @@ class GoodsListPresenter @Inject constructor() : BasePresenter<GoodsListView>() 
             .execute(lifecycleProvider, object : BaseSubscriber<MutableList<Goods>?>(mView) {
                 override fun onNext(t: MutableList<Goods>?) {
                     mView.onGetGoodsListResult(t)
-                }
-
-                override fun onError(e: Throwable?) {
-                    super.onError(e)
-                    println(e?.message)
                 }
             })
     }

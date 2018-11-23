@@ -39,7 +39,6 @@ class BottomNavBar @JvmOverloads constructor(
             .setInActiveColorResource(R.color.text_normal)
 
         mCartBadge = TextBadgeItem()
-        mCartBadge.hide()
         cartItem.setBadgeItem(mCartBadge)
 
         //消息

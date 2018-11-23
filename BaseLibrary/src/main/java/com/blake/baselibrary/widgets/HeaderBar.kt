@@ -5,6 +5,7 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.View
 import android.widget.FrameLayout
+import android.widget.ImageView
 import android.widget.TextView
 import com.blake.baselibrary.R
 import com.blake.baselibrary.ext.onClick
@@ -47,4 +48,5 @@ class HeaderBar @JvmOverloads constructor(
     }
 
     fun getRightView(): TextView = mRightTv
+    fun getLeftView(): ImageView = mLeftIv
 }
