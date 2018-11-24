@@ -4,11 +4,19 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import com.ashokvarma.bottomnavigation.BottomNavigationBar
+import com.blake.baselibrary.common.AppManager
+import com.blake.baselibrary.utils.AppPrefsUtils
 import com.blake.dubal.R
 import com.blake.dubal.ui.fragment.HomeFragment
 import com.blake.dubal.ui.fragment.MeFragment
+import com.blake.goodscenter.common.GoodsConstant
+import com.blake.goodscenter.event.UpdateCartSizeEvent
+import com.blake.goodscenter.ui.fragment.CartFragment
 import com.blake.goodscenter.ui.fragment.CategoryFragment
+import com.eightbitlab.rxbus.Bus
+import com.eightbitlab.rxbus.registerInBus
 import kotlinx.android.synthetic.main.activity_main.*
+import org.jetbrains.anko.toast
 import java.util.*
 
 class MainActivity : AppCompatActivity() {
@@ -21,7 +29,7 @@ class MainActivity : AppCompatActivity() {
     //商品分类Fragment
     private val mCategoryFragment by lazy { CategoryFragment() }
     //购物车Fragment
-    private val mCartFragment by lazy { HomeFragment() }
+    private val mCartFragment by lazy { CartFragment() }
     //消息Fragment
     private val mMsgFragment by lazy { HomeFragment() }
     //"我的"Fragment
@@ -31,10 +39,11 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        initView()
         initFragment()
         initBottomNav()
         changeFragment(0)
+        initObserve()
+        loadCartSize()
     }
 
     private fun initFragment() {
@@ -53,10 +62,6 @@ class MainActivity : AppCompatActivity() {
         mStack.add(mMeFragment)
     }
 
-    private fun initView() {
-
-    }
-
     private fun initBottomNav() {
         mBottomNavBar.setTabSelectedListener(object : BottomNavigationBar.OnTabSelectedListener {
             override fun onTabReselected(position: Int) {
@@ -71,6 +76,21 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
+    private fun loadCartSize() {
+        mBottomNavBar.checkCartBadge(AppPrefsUtils.getInt(GoodsConstant.SP_CART_SIZE))
+    }
+
+    private fun initObserve() {
+        Bus.observe<UpdateCartSizeEvent>()
+            .subscribe { loadCartSize() }
+            .registerInBus(this)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        Bus.unregister(this)
+    }
+
     private fun changeFragment(position: Int) {
         val manager = supportFragmentManager.beginTransaction()
         for (fragment in mStack) {
@@ -79,5 +99,18 @@ class MainActivity : AppCompatActivity() {
 
         manager.show(mStack[position])
         manager.commit()
+    }
+
+    /*
+        重写Back事件，双击退出
+     */
+    override fun onBackPressed() {
+        val time = System.currentTimeMillis()
+        if (time - pressTime > 2000) {
+            toast("再按一次退出程序")
+            pressTime = time
+        } else {
+            AppManager.exitApp(this)
+        }
     }
 }

@@ -25,11 +25,6 @@ class CategoryPresenter @Inject constructor() : BasePresenter<CategoryView>() {
                 override fun onNext(t: MutableList<Category>?) {
                     mView.onGetCategoryResult(t)
                 }
-
-                override fun onError(e: Throwable?) {
-                    super.onError(e)
-                    println(e?.message)
-                }
             })
     }
 }

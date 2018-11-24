@@ -14,8 +14,10 @@ import com.blake.baselibrary.widgets.BannerImageLoader
 import com.blake.goodscenter.R
 import com.blake.goodscenter.common.GoodsConstant
 import com.blake.goodscenter.data.protocol.Goods
+import com.blake.goodscenter.event.AddCartEvent
 import com.blake.goodscenter.event.GoodsDetailImageEvent
 import com.blake.goodscenter.event.SkuChangedEvent
+import com.blake.goodscenter.event.UpdateCartSizeEvent
 import com.blake.goodscenter.injection.component.DaggerGoodsComponent
 import com.blake.goodscenter.injection.module.GoodsModule
 import com.blake.goodscenter.presenter.GoodsDetailPresenter
@@ -28,15 +30,18 @@ import com.kotlin.base.utils.YuanFenConverter
 import com.youth.banner.BannerConfig
 import com.youth.banner.Transformer
 import kotlinx.android.synthetic.main.fragment_goods_detail_tab_one.*
+import org.jetbrains.anko.support.v4.toast
 
 /**
  * Create by Pidan
  */
 class GoodsDetailTabOneFragment : BaseMvpFragment<GoodsDetailPresenter>(), GoodsDetailView {
-
     private lateinit var mSkuPop: GoodsSkuPopView
+
     private lateinit var mAnimStart: ScaleAnimation
     private lateinit var mAnimEnd: ScaleAnimation
+
+    private var mCurGoods: Goods? = null
 
     override fun injectComponent() {
         DaggerGoodsComponent.builder()
@@ -108,6 +113,9 @@ class GoodsDetailTabOneFragment : BaseMvpFragment<GoodsDetailPresenter>(), Goods
                 mSkuSelectedTv.text = mSkuPop.getSelectSku() + GoodsConstant.SKU_SEPARATOR + mSkuPop.getSelectCount() +
                         "件"
             }.registerInBus(this)
+        Bus.observe<AddCartEvent>()
+            .subscribe { addCart() }
+            .registerInBus(this)
     }
 
     override fun onDestroy() {
@@ -116,6 +124,8 @@ class GoodsDetailTabOneFragment : BaseMvpFragment<GoodsDetailPresenter>(), Goods
     }
 
     override fun onGetGoodsDetailResult(result: Goods) {
+        mCurGoods = result
+
         mGoodsDetailBanner.setImages(result.goodsBanner.split(","))
         //banner设置方法全部调用完毕时最后调用
         mGoodsDetailBanner.start()
@@ -128,11 +138,28 @@ class GoodsDetailTabOneFragment : BaseMvpFragment<GoodsDetailPresenter>(), Goods
         loadPopData(result)
     }
 
+    override fun onAddCartResult(result: Int) {
+        Bus.send(UpdateCartSizeEvent())
+    }
+
     private fun loadPopData(result: Goods) {
         mSkuPop.setGoodsIcon(result.goodsDefaultIcon)
         mSkuPop.setGoodsCode(result.goodsCode)
         mSkuPop.setGoodsPrice(result.goodsDefaultPrice)
 
         mSkuPop.setSkuData(result.goodsSku)
+    }
+
+    private fun addCart() {
+        mCurGoods?.apply {
+            mPresenter.addCart(
+                id,
+                goodsDesc,
+                goodsDefaultIcon,
+                goodsDefaultPrice,
+                mSkuPop.getSelectCount(),
+                mSkuPop.getSelectSku()
+            )
+        }
     }
 }
