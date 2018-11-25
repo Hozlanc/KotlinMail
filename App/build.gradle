@@ -6,7 +6,7 @@ apply plugin: 'kotlin-android-extensions'
 
 android {
     compileSdkVersion compile_sdk_version
-
+    buildToolsVersion build_tools_version
     defaultConfig {
         minSdkVersion min_sdk_version
         targetSdkVersion target_sdk_version
@@ -21,15 +21,20 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 dependencies {
-    api project(':Provider')
-//    if (isUserModule.toBoolean()) {
+    implementation project(':Provider')
+    //    if (isUserModule.toBoolean()) {
     implementation project(':UserCenter')
     implementation project(':GoodsCenter')
     implementation project(':MessageCenter')
-//    }
+    implementation project(':OrderCenter')
+    //    }
     kapt "com.google.dagger:dagger-compiler:$dagger_version"
 }
 repositories {

@@ -1,6 +1,7 @@
 package com.blake.baselibrary.ui.activity
 
 import android.os.Bundle
+import com.alibaba.android.arouter.launcher.ARouter
 import com.blake.baselibrary.common.BaseApplication
 import com.blake.baselibrary.injection.component.ActivityComponent
 import com.blake.baselibrary.injection.component.DaggerActivityComponent
@@ -41,6 +42,7 @@ abstract class BaseMvpActivity<T : BasePresenter<*>> : BaseActivity(), BaseView 
         injectComponent()
 
         progressLoading = ProgressLoading.create(this)
+        ARouter.getInstance().inject(this)
     }
 
     abstract fun injectComponent()

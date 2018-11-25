@@ -5,6 +5,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.alibaba.android.arouter.launcher.ARouter
 import com.blake.baselibrary.ext.onClick
 import com.blake.baselibrary.ext.setVisible
 import com.blake.baselibrary.ext.startLoading
@@ -22,6 +23,8 @@ import com.blake.goodscenter.injection.module.CartModule
 import com.blake.goodscenter.presenter.CartListPresenter
 import com.blake.goodscenter.presenter.view.CartListView
 import com.blake.goodscenter.ui.adapter.CartGoodsAdapter
+import com.blake.provider.common.ProviderConstant
+import com.blake.provider.router.RouterPath
 import com.eightbitlab.rxbus.Bus
 import com.eightbitlab.rxbus.registerInBus
 import com.kennyc.view.MultiStateView
@@ -167,7 +170,10 @@ class CartFragment : BaseMvpFragment<CartListPresenter>(), CartListView {
     }
 
     override fun onSubmitCartResult(result: Int) {
-        toast("$result")
+        ARouter.getInstance()
+            .build(RouterPath.OrderCenter.PATH_ORDER_CONFIRM)
+            .withInt(ProviderConstant.KEY_ORDER_ID, result)
+            .navigation()
     }
 
     fun setBackVisible(isVisible: Boolean) {
