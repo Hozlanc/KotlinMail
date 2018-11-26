@@ -4,20 +4,20 @@ import com.blake.baselibrary.ext.execute
 import com.blake.baselibrary.presenter.BasePresenter
 import com.blake.baselibrary.rx.BaseSubscriber
 import com.kotlin.order.data.protocol.Order
-import com.kotlin.order.presenter.view.OrderConfirmView
+import com.kotlin.order.presenter.view.OrderDetailView
 import com.kotlin.order.service.OrderService
 import javax.inject.Inject
 
 /*
-    订单确认页 Presenter
+    订单详情页Presenter
  */
-class OrderConfirmPresenter @Inject constructor() : BasePresenter<OrderConfirmView>() {
+class OrderDetailPresenter @Inject constructor() : BasePresenter<OrderDetailView>() {
 
     @Inject
     lateinit var orderService: OrderService
 
     /*
-        根据ID获取订单
+        根据ID查询订单
      */
     fun getOrderById(orderId: Int) {
         if (!checkNetwork()) {
@@ -31,22 +31,5 @@ class OrderConfirmPresenter @Inject constructor() : BasePresenter<OrderConfirmVi
         })
 
     }
-
-    /*
-        提交订单
-     */
-    fun submitOrder(order: Order) {
-        if (!checkNetwork()) {
-            return
-        }
-        mView.showLoading()
-        orderService.submitOrder(order).execute(lifecycleProvider, object : BaseSubscriber<Boolean>(mView) {
-            override fun onNext(t: Boolean) {
-                mView.onSubmitOrderResult(t)
-            }
-        })
-
-    }
-
 
 }

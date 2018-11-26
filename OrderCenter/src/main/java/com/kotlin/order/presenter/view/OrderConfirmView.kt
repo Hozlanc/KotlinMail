@@ -3,9 +3,13 @@ package com.kotlin.order.presenter.view
 import com.blake.baselibrary.presenter.view.BaseView
 import com.kotlin.order.data.protocol.Order
 
-/**
- * Create by Pidan
+/*
+    订单确认页 视图回调
  */
 interface OrderConfirmView : BaseView {
-    fun onGetOrderByIdResult(result: Order)
+
+    //获取订单回调
+    fun onGetOrderByIdResult(result:Order)
+    //提交订单回调
+    fun onSubmitOrderResult(result:Boolean)
 }

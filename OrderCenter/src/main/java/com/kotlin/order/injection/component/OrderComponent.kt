@@ -4,6 +4,8 @@ import com.blake.baselibrary.injection.PerComponentScope
 import com.blake.baselibrary.injection.component.ActivityComponent
 import com.kotlin.order.injection.module.OrderModule
 import com.kotlin.order.ui.activity.OrderConfirmActivity
+import com.kotlin.order.ui.activity.OrderDetailActivity
+import com.kotlin.order.ui.fragment.OrderFragment
 import dagger.Component
 
 /**
@@ -13,4 +15,8 @@ import dagger.Component
 @Component(modules = [OrderModule::class], dependencies = [ActivityComponent::class])
 interface OrderComponent {
     fun inject(activity: OrderConfirmActivity)
+
+    fun inject(fragment: OrderFragment)
+
+    fun inject(activity: OrderDetailActivity)
 }
