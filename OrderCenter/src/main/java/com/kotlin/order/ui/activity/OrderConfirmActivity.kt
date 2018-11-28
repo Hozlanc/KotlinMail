@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import com.alibaba.android.arouter.facade.annotation.Autowired
 import com.alibaba.android.arouter.facade.annotation.Route
+import com.alibaba.android.arouter.launcher.ARouter
 import com.blake.baselibrary.ext.onClick
 import com.blake.baselibrary.ext.setVisible
 import com.blake.baselibrary.ui.activity.BaseMvpActivity
@@ -120,5 +121,11 @@ class OrderConfirmActivity : BaseMvpActivity<OrderConfirmPresenter>(), OrderConf
 
     override fun onSubmitOrderResult(result: Boolean) {
         toast("订单提交成功")
+        ARouter.getInstance()
+            .build(RouterPath.PaySDK.PATH_PAY)
+            .withInt(ProviderConstant.KEY_ORDER_ID, mCurrentOrder!!.id)
+            .withLong(ProviderConstant.KEY_ORDER_PRICE, mCurrentOrder!!.totalPrice)
+            .navigation()
+        finish()
     }
 }

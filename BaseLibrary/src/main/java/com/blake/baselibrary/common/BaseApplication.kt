@@ -10,7 +10,7 @@ import com.blake.baselibrary.injection.module.AppModule
 /**
  * Create by Pidan
  */
-class BaseApplication : Application() {
+open class BaseApplication : Application() {
 
     lateinit var appComponent: AppComponent
     override fun onCreate() {

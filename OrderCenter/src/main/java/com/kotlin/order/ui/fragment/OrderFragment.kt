@@ -6,11 +6,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.alibaba.android.arouter.facade.model.RouteMeta.build
+import com.alibaba.android.arouter.launcher.ARouter
 import com.bigkoo.alertview.AlertView
 import com.blake.baselibrary.ext.startLoading
 import com.blake.baselibrary.ui.adapter.BaseRecyclerViewAdapter
 import com.blake.baselibrary.ui.fragment.BaseMvpFragment
 import com.blake.provider.common.ProviderConstant
+import com.blake.provider.router.RouterPath
 import com.kennyc.view.MultiStateView
 import com.kotlin.order.R
 import com.kotlin.order.R.id.mMultiStateView
@@ -49,6 +51,10 @@ class OrderFragment : BaseMvpFragment<OrderListPresenter>(), OrderListView {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initView()
+    }
+
+    override fun onStart() {
+        super.onStart()
         loadData()
     }
 
@@ -59,7 +65,13 @@ class OrderFragment : BaseMvpFragment<OrderListPresenter>(), OrderListView {
         mAdapter.listener = object : OrderAdapter.OnOptClickListener {
             override fun onOptClick(optType: Int, order: Order) {
                 when (optType) {
-                    OrderConstant.OPT_ORDER_PAY -> toast("支付")
+                    OrderConstant.OPT_ORDER_PAY -> {
+                        ARouter.getInstance()
+                            .build(RouterPath.PaySDK.PATH_PAY)
+                            .withInt(ProviderConstant.KEY_ORDER_ID, order.id)
+                            .withLong(ProviderConstant.KEY_ORDER_PRICE, order.totalPrice)
+                            .navigation()
+                    }
                     OrderConstant.OPT_ORDER_CONFIRM -> {
                         mMultiStateView.startLoading()
                         mPresenter.confirmOrder(order.id)
