@@ -1,6 +1,6 @@
 package com.kotlin.pay.data.api
 
-import com.blake.baselibrary.data.protocol.BaseResp
+import com.kotlin.base.data.protocol.BaseResp
 import com.kotlin.pay.data.protocol.GetPaySignReq
 import com.kotlin.pay.data.protocol.PayOrderReq
 import retrofit2.http.Body

@@ -3,9 +3,9 @@ package com.kotlin.order.ui.activity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import com.alibaba.android.arouter.facade.annotation.Route
-import com.blake.baselibrary.ui.activity.BaseMvpActivity
-import com.blake.provider.common.ProviderConstant
-import com.blake.provider.router.RouterPath
+import com.kotlin.base.ui.activity.BaseMvpActivity
+import com.kotlin.provider.common.ProviderConstant
+import com.kotlin.provider.router.RouterPath
 import com.kotlin.base.utils.YuanFenConverter
 import com.kotlin.order.R
 import com.kotlin.order.data.protocol.Order
@@ -19,7 +19,7 @@ import kotlinx.android.synthetic.main.activity_order_detail.*
 /**
  * Create by Pidan
  */
-@Route(path = RouterPath.MessageCenter.PATH_MESSAGE_ORDER)
+@Route(path = RouterPath.OrderCenter.PATH_ORDER_DETAIL)
 class OrderDetailActivity : BaseMvpActivity<OrderDetailPresenter>(), OrderDetailView {
 
     private lateinit var mAdapter: OrderGoodsAdapter

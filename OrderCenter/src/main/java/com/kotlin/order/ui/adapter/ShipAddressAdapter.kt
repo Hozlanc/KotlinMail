@@ -5,8 +5,8 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.blake.baselibrary.ext.onClick
-import com.blake.baselibrary.ui.adapter.BaseRecyclerViewAdapter
+import com.kotlin.base.ext.onClick
+import com.kotlin.base.ui.adapter.BaseRecyclerViewAdapter
 import com.kotlin.order.R
 import com.kotlin.order.data.protocol.ShipAddress
 import kotlinx.android.synthetic.main.layout_address_item.view.*

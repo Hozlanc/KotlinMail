@@ -4,8 +4,8 @@ import android.os.Bundle
 import android.support.design.widget.TabLayout
 import com.alibaba.android.arouter.facade.annotation.Autowired
 import com.alibaba.android.arouter.facade.annotation.Route
-import com.blake.baselibrary.ui.activity.BaseActivity
-import com.blake.provider.router.RouterPath
+import com.kotlin.base.ui.activity.BaseActivity
+import com.kotlin.provider.router.RouterPath
 import com.kotlin.order.R
 import com.kotlin.order.common.OrderConstant
 import com.kotlin.order.ui.adapter.OrderVpAdapter

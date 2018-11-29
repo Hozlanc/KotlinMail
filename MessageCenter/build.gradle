@@ -49,4 +49,6 @@ dependencies {
     api 'cn.jiguang.sdk:jcore:1.2.5'  // 此处以JCore 1.2.5 版本为例。
     /*Dagger2*/
     kapt "com.google.dagger:dagger-compiler:$dagger_version"
+    /*ARouter*/
+    kapt "com.alibaba:arouter-compiler:$arouter_compiler_version"
 }

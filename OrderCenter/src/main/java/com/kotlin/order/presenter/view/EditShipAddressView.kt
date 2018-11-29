@@ -1,6 +1,6 @@
 package com.kotlin.order.presenter.view
 
-import com.blake.baselibrary.presenter.view.BaseView
+import com.kotlin.base.presenter.view.BaseView
 
 /*
     编辑收货人信息 视图回调

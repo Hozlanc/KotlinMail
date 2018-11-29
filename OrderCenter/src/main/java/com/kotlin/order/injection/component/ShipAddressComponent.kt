@@ -1,7 +1,7 @@
 package com.kotlin.order.injection.component
 
-import com.blake.baselibrary.injection.PerComponentScope
-import com.blake.baselibrary.injection.component.ActivityComponent
+import com.kotlin.base.injection.PerComponentScope
+import com.kotlin.base.injection.component.ActivityComponent
 import com.kotlin.order.injection.module.ShipAddressModule
 import com.kotlin.order.ui.activity.ShipAddressActivity
 import com.kotlin.order.ui.activity.ShipAddressEditActivity

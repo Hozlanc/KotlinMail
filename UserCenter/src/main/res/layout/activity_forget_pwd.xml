@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               xmlns:app="http://schemas.android.com/apk/res-auto"
               style="@style/MatchMatch.Vertical.Common">
-    <com.blake.baselibrary.widgets.HeaderBar
+    <com.kotlin.base.widgets.HeaderBar
             android:id="@+id/mHeaderBar"
             style="@style/MatchWrap"
             app:titleText="忘记密码"/>
@@ -23,7 +23,7 @@
                       android:layout_weight="1.0"
                       android:inputType="phone"/>
             <View style="@style/DividerFixedWidth.MarginTopBottom"/>
-            <com.blake.baselibrary.widgets.VerifyButton
+            <com.kotlin.base.widgets.VerifyButton
                     android:id="@+id/mVerifyCodeBtn"
                     style="@style/WrapMatch"
                     android:text="获取验证码"

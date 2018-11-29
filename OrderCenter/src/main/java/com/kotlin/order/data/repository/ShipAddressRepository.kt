@@ -1,7 +1,7 @@
 package com.kotlin.order.data.repository
 
-import com.blake.baselibrary.data.net.RetrofitFactory
-import com.blake.baselibrary.data.protocol.BaseResp
+import com.kotlin.base.data.net.RetrofitFactory
+import com.kotlin.base.data.protocol.BaseResp
 import com.kotlin.order.data.api.ShipAddressApi
 import com.kotlin.order.data.protocol.AddShipAddressReq
 import com.kotlin.order.data.protocol.DeleteShipAddressReq

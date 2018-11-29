@@ -19,7 +19,7 @@
             android:id="@+id/mHomeBanner"
             android:layout_width="match_parent"
             android:layout_height="150dp"/>
-    <com.blake.messagecenter.NewsFlipperView
+    <com.kotlin.message.NewsFlipperView
             android:id="@+id/mNewsFlipperView"
             style="@style/MatchWrap"
             android:layout_marginLeft="@dimen/common_margin_middle"

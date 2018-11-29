@@ -1,8 +1,8 @@
 package com.kotlin.pay.presenter
 
-import com.blake.baselibrary.ext.execute
-import com.blake.baselibrary.presenter.BasePresenter
-import com.blake.baselibrary.rx.BaseSubscriber
+import com.kotlin.base.ext.execute
+import com.kotlin.base.presenter.BasePresenter
+import com.kotlin.base.rx.BaseSubscriber
 import com.kotlin.pay.presenter.view.PayView
 import com.kotlin.pay.service.PayService
 import javax.inject.Inject

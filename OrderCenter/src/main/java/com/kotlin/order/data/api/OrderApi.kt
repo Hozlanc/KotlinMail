@@ -1,6 +1,6 @@
 package com.kotlin.order.data.api
 
-import com.blake.baselibrary.data.protocol.BaseResp
+import com.kotlin.base.data.protocol.BaseResp
 import com.kotlin.order.data.protocol.*
 import retrofit2.http.Body
 import retrofit2.http.POST

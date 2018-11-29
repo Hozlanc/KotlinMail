@@ -1,18 +1,13 @@
 package com.kotlin.order.ui.activity
 
-import android.net.Uri
 import android.os.Bundle
-import android.support.v4.content.ContextCompat.startActivity
 import android.support.v7.widget.LinearLayoutManager
 import com.bigkoo.alertview.AlertView
-import com.blake.baselibrary.ext.onClick
-import com.blake.baselibrary.ext.setVisible
-import com.blake.baselibrary.ext.startLoading
-import com.blake.baselibrary.ui.activity.BaseActivity
-import com.blake.baselibrary.ui.activity.BaseMvpActivity
-import com.blake.baselibrary.ui.adapter.BaseRecyclerViewAdapter
+import com.kotlin.base.ext.onClick
+import com.kotlin.base.ext.startLoading
+import com.kotlin.base.ui.activity.BaseMvpActivity
+import com.kotlin.base.ui.adapter.BaseRecyclerViewAdapter
 import com.eightbitlab.rxbus.Bus
-import com.jph.takephoto.compress.CompressConfig
 import com.kennyc.view.MultiStateView
 import com.kotlin.order.R
 import com.kotlin.order.R.id.mAddAddressBtn

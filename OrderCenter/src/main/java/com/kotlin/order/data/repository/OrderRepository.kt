@@ -1,8 +1,8 @@
 package com.kotlin.order.data.repository
 
 
-import com.blake.baselibrary.data.net.RetrofitFactory
-import com.blake.baselibrary.data.protocol.BaseResp
+import com.kotlin.base.data.net.RetrofitFactory
+import com.kotlin.base.data.protocol.BaseResp
 import com.kotlin.order.data.api.OrderApi
 import com.kotlin.order.data.protocol.*
 import rx.Observable

@@ -1,8 +1,8 @@
 package com.kotlin.order.presenter
 
-import com.blake.baselibrary.ext.execute
-import com.blake.baselibrary.presenter.BasePresenter
-import com.blake.baselibrary.rx.BaseSubscriber
+import com.kotlin.base.ext.execute
+import com.kotlin.base.presenter.BasePresenter
+import com.kotlin.base.rx.BaseSubscriber
 import com.kotlin.order.data.protocol.Order
 import com.kotlin.order.presenter.view.OrderListView
 import com.kotlin.order.service.OrderService

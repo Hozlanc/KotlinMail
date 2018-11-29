@@ -1,6 +1,6 @@
 package com.kotlin.order.data.api
 
-import com.blake.baselibrary.data.protocol.BaseResp
+import com.kotlin.base.data.protocol.BaseResp
 import com.kotlin.order.data.protocol.AddShipAddressReq
 import com.kotlin.order.data.protocol.DeleteShipAddressReq
 import com.kotlin.order.data.protocol.EditShipAddressReq

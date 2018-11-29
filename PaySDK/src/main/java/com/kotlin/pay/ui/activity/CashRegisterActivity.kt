@@ -7,10 +7,10 @@ import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
 import com.alipay.sdk.app.EnvUtils
 import com.alipay.sdk.app.PayTask
-import com.blake.baselibrary.ext.onClick
-import com.blake.baselibrary.ui.activity.BaseMvpActivity
-import com.blake.provider.common.ProviderConstant
-import com.blake.provider.router.RouterPath
+import com.kotlin.base.ext.onClick
+import com.kotlin.base.ui.activity.BaseMvpActivity
+import com.kotlin.provider.common.ProviderConstant
+import com.kotlin.provider.router.RouterPath
 import com.kotlin.base.utils.YuanFenConverter
 import com.kotlin.pay.R
 import com.kotlin.pay.injection.component.DaggerPayComponent

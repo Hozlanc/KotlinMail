@@ -10,7 +10,7 @@
             android:layout_height="0dp"
             android:layout_weight="1"/>
 
-    <com.blake.baselibrary.widgets.BottomNavBar
+    <com.kotlin.base.widgets.BottomNavBar
             android:id="@+id/mBottomNavBar"
             style="@style/MatchWrap"/>
 </LinearLayout>

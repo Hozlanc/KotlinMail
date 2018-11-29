@@ -5,8 +5,8 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.blake.baselibrary.ext.loadUrl
-import com.blake.baselibrary.ui.adapter.BaseRecyclerViewAdapter
+import com.kotlin.base.ext.loadUrl
+import com.kotlin.base.ui.adapter.BaseRecyclerViewAdapter
 import com.kotlin.base.utils.YuanFenConverter
 import com.kotlin.order.R
 import com.kotlin.order.data.protocol.OrderGoods

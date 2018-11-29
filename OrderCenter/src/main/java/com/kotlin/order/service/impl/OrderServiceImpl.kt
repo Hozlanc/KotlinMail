@@ -1,7 +1,7 @@
 package com.kotlin.order.service.impl
 
-import com.blake.baselibrary.ext.convert
-import com.blake.baselibrary.ext.convertBoolean
+import com.kotlin.base.ext.convert
+import com.kotlin.base.ext.convertBoolean
 import com.kotlin.order.data.protocol.Order
 import com.kotlin.order.data.repository.OrderRepository
 import com.kotlin.order.service.OrderService

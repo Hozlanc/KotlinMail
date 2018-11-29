@@ -5,11 +5,11 @@ import android.support.v7.widget.LinearLayoutManager
 import com.alibaba.android.arouter.facade.annotation.Autowired
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
-import com.blake.baselibrary.ext.onClick
-import com.blake.baselibrary.ext.setVisible
-import com.blake.baselibrary.ui.activity.BaseMvpActivity
-import com.blake.provider.common.ProviderConstant
-import com.blake.provider.router.RouterPath
+import com.kotlin.base.ext.onClick
+import com.kotlin.base.ext.setVisible
+import com.kotlin.base.ui.activity.BaseMvpActivity
+import com.kotlin.provider.common.ProviderConstant
+import com.kotlin.provider.router.RouterPath
 import com.eightbitlab.rxbus.Bus
 import com.eightbitlab.rxbus.registerInBus
 import com.kotlin.base.utils.YuanFenConverter
@@ -22,7 +22,6 @@ import com.kotlin.order.presenter.OrderConfirmPresenter
 import com.kotlin.order.presenter.view.OrderConfirmView
 import com.kotlin.order.ui.adapter.OrderGoodsAdapter
 import kotlinx.android.synthetic.main.activity_order_confirm.*
-import kotlinx.android.synthetic.main.layout_order_item.*
 import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
 

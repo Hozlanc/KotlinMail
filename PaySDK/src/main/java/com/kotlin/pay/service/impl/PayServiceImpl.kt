@@ -1,7 +1,7 @@
 package com.kotlin.pay.service.impl
 
-import com.blake.baselibrary.ext.convert
-import com.blake.baselibrary.ext.convertBoolean
+import com.kotlin.base.ext.convert
+import com.kotlin.base.ext.convertBoolean
 import com.kotlin.pay.data.repository.PayRepository
 import com.kotlin.pay.service.PayService
 import rx.Observable
